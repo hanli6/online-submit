@@ -10,7 +10,7 @@
         text-color="#fff"
         active-text-color="#ffd04b"
     >
-      <h3>期刊在线投稿系统</h3>
+      <h3>{{ isCollapse ? "后台" : "期刊在线投稿系统"}}</h3>
       <el-menu-item @click="clickMenu(item)" v-for="item in noChildren" :key="item.name" :index="item.label">
         <i :class="`el-icon-${item.icon}`"></i>
         <span slot="title">{{ item.label }}</span>
@@ -37,6 +37,7 @@
 
 .el-menu {
   height: 100vh;
+  border-right: 0px;
 
   h3 {
     color: #fff;
@@ -53,7 +54,6 @@
 export default {
   data() {
     return {
-      isCollapse: false,
       menuData: [
         {
           path: '/',
@@ -119,6 +119,9 @@ export default {
     //有子菜单
     hasChildren() {
       return this.menuData.filter(item => item.children)
+    },
+    isCollapse(){
+      return this.$store.state.tab.isCollapsed;
     }
   }
 }
