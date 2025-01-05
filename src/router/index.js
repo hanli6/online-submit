@@ -7,6 +7,7 @@ import VueRouter from "vue-router";
 import mall from "@/views/Mall.vue";
 import pageOne from "@/views/PageOne.vue";
 import pageTwo from "@/views/PageTwo.vue";
+import login from "@/views/Login.vue";
 
 Vue.use(Router);
 
@@ -38,6 +39,10 @@ const routes = [
                 component:pageTwo
             }
         ]
+    },
+    {
+        path: '/login',
+        component: login
     }
 ]
 
