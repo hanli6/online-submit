@@ -10,7 +10,7 @@
           <el-input v-model="formData.password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+          <el-button type="primary" @click="onsubmit()">立即创建</el-button>
           <el-button @click="resetForm('ruleForm')">注册</el-button>
         </el-form-item>
       </el-form>
@@ -19,6 +19,8 @@
 </template>
  
 <script>
+    import myAxios from "@/config";
+
     export default {
         props: [],
         watch: {},
@@ -49,7 +51,22 @@
         created() {},
         mounted() {},
         methods:{
-        
+          async onsubmit(){
+            //校验参数
+            if (this.formData.username === '' || this.formData.password === '') {
+              this.$message('用户名或密码不合法')
+              return;
+            }
+
+            //发起网络请求
+            await myAxios.post('/user/login', this.formData)
+                .then(function (response) {
+                  console.log(response);
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+          }
         },
         components:{
          
