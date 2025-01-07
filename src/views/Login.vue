@@ -10,94 +10,84 @@
           <el-input v-model="formData.password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onsubmit()">立即创建</el-button>
-          <el-button @click="resetForm('ruleForm')">注册</el-button>
+          <el-button type="primary" @click="onsubmit()">登录</el-button>
+          <el-button @click="toRegisterPage()">注册</el-button>
         </el-form-item>
       </el-form>
     </div>
   </div>
 </template>
- 
+
 <script>
-    import myAxios from "@/config";
+import {userLogin} from "@/api";
 
-    export default {
-        props: [],
-        watch: {},
-        data(){
-          return{
-            formData: {
-              username: '',
-              password: ''
-            },
-            rules: {
-              username: [
-                {
-                  required: true,
-                  trigger: 'blur',
-                  message:'请输入用户名'
-                }
-              ],
-              password: [
-                {
-                  required: true,
-                  trigger: 'blur',
-                  message:'请输入密码'
-                }
-              ],
-            }
+export default {
+  props: [],
+  watch: {},
+  data() {
+    return {
+      formData: {
+        username: '',
+        password: ''
+      },
+      rules: {
+        username: [
+          {
+            required: true,
+            trigger: 'blur',
+            message: '请输入用户名'
           }
-        },
-        created() {},
-        mounted() {},
-        methods:{
-          async onsubmit(){
-            //校验参数
-            if (this.formData.username === '' || this.formData.password === '') {
-              this.$message('用户名或密码不合法')
-              return;
-            }
-
-            //发起网络请求
-            await myAxios.post('/user/login', this.formData)
-                .then(function (response) {
-                  console.log(response);
-                })
-                .catch(function (error) {
-                  console.log(error);
-                });
+        ],
+        password: [
+          {
+            required: true,
+            trigger: 'blur',
+            message: '请输入密码'
           }
-        },
-        components:{
-         
-        },
-        beforeDestroy() {}
-        
+        ],
+      }
     }
+  },
+  created() {
+  },
+  mounted() {
+  },
+  methods: {
+    async onsubmit() {
+      let res;
+      //校验参数
+      if (this.formData.username === '' || this.formData.password === '') {
+        this.$message('用户名或密码不合法')
+        return;
+      }
+
+      //发起网络请求
+      await userLogin(this.formData)
+          .then(function (response) {
+            res = response.data;
+            //处理返回结果
+            if (res.code === 200) {
+              this.$router.push('/home');
+              this.$message('登录成功');
+            } else {
+              this.$message(res.message);
+            }
+          }.bind(this))
+          .catch(function (error) {
+            console.log(error);
+          }.bind(this));
+    },
+    toRegisterPage() {
+      this.$router.push('/register');
+    }
+  },
+  components: {},
+  beforeDestroy() {
+  }
+
+}
 </script>
 
 <style lang='less' scoped>
-.container{
-  //background: deepskyblue; /* 整个页面背景色 */
-  //height: 100vh; /* 高度填满整个视口 */
-  //display: flex;
-  //justify-content: center; /* 水平居中 */
-  //align-items: center; /* 垂直居中 */
-}
-.loginForm{
-  width: 400px;
-  margin: 300px auto;
-  //border: 1px solid red;
-  //background-color: cadetblue;
-  padding: 20px;
-  .title{
-    text-align: center;
-    margin: 0 0 30px  0;
-    font-size: 20px;
-    color: black;
-  }
-  .el-button--primary{
-    margin-right: 80px;
-  }
-}
+@import url('../less/global.less');
 </style>
