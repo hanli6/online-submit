@@ -51,52 +51,54 @@
 
 <script>
 
+import jsCookie from "js-cookie";
+
 export default {
   data() {
     return {
-      menuData: [
-        {
-          path: '/',
-          name: 'home',
-          label: '首页',
-          icon: 's-home',
-          url: '/Home/Home'
-        },
-        {
-          path: '/mall',
-          name: 'mall',
-          label: '商品管理',
-          icon: 'video-play',
-          url: '/MailManage/MailManage'
-        },
-        {
-          path: '/user',
-          name: 'user',
-          label: '用户管理',
-          icon: 'user',
-          url: '/UserManage/UserManage'
-        },
-        {
-          label: '其他',
-          icon: 'location',
-          children: [
-            {
-              path: '/pageOne',
-              name: 'page1',
-              label: '页面1',
-              icon: 'setting',
-              url: '/Other/PageOne'
-            },
-            {
-              path: '/pageTwo',
-              name: 'page2',
-              label: '页面2',
-              icon: 'setting',
-              url: '/Other/PageTwo'
-            },
-          ]
-        },
-      ]
+      // menuData: [
+      //   {
+      //     path: '/',
+      //     name: 'home',
+      //     label: '首页',
+      //     icon: 's-home',
+      //     url: '/Home/Home'
+      //   },
+      //   {
+      //     path: '/mall',
+      //     name: 'mall',
+      //     label: '商品管理',
+      //     icon: 'video-play',
+      //     url: '/MailManage/MailManage'
+      //   },
+      //   {
+      //     path: '/user',
+      //     name: 'user',
+      //     label: '用户管理',
+      //     icon: 'user',
+      //     url: '/UserManage/UserManage'
+      //   },
+      //   {
+      //     label: '其他',
+      //     icon: 'location',
+      //     children: [
+      //       {
+      //         path: '/pageOne',
+      //         name: 'page1',
+      //         label: '页面1',
+      //         icon: 'setting',
+      //         url: '/Other/PageOne'
+      //       },
+      //       {
+      //         path: '/pageTwo',
+      //         name: 'page2',
+      //         label: '页面2',
+      //         icon: 'setting',
+      //         url: '/Other/PageTwo'
+      //       },
+      //     ]
+      //   },
+      // ]
     };
   },
   methods: {
@@ -122,6 +124,9 @@ export default {
     },
     isCollapse(){
       return this.$store.state.tab.isCollapsed;
+    },
+    menuData() {
+      return this.$store.state.tab.menu || jsCookie.parse(jsCookie.get("menu"));
     }
   }
 }

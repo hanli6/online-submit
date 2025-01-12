@@ -67,6 +67,10 @@ export default {
             res = response.data;
             //处理返回结果
             if (res.code === 200) {
+              //将菜单树存储在Store中
+              this.$store.commit('setMenu',res.data.menuVoList)
+              //添加动态路由
+              this.$store.commit('addMenu',this.$router)
               this.$router.push('/home');
               this.$message('登录成功');
             } else {
