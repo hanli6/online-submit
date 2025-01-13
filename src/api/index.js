@@ -9,3 +9,8 @@ export const userLogin = (params)=>{
 export const userRegister = (params)=>{
     return myAxios.post('/user/register',params)
 }
+
+//查询日志接口
+export const operateLog = ()=>{
+    return myAxios.get('/operate_log/list')
+}

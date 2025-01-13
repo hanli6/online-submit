@@ -45,24 +45,42 @@
               :data="tableData"
               style="width: 100%">
             <el-table-column
-                prop="serialNumber"
+                prop="id"
                 label="序号"
-                width="180">
+                width="50px"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="name"
+                label="操作内容">
+            </el-table-column>
+            <el-table-column
+                prop="methodName"
+                label="方法名称"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="requestMethod"
+                label="请求方式">
+            </el-table-column>
+            <el-table-column
+                prop="ipAddr"
+                label="请求地址">
+            </el-table-column>
+            <el-table-column
+                prop="url"
+                label="请求路径"
+            >
+            </el-table-column>
+            <el-table-column
+                prop="requestTime"
+                label="请求时间"
+                :formatter="formatDate"
+            >
             </el-table-column>
             <el-table-column
                 prop="operator"
-                label="操作人"
-                width="180">
-            </el-table-column>
-            <el-table-column
-                prop="operatorContent"
-                label="操作内容"
-                >
-            </el-table-column>
-            <el-table-column
-                prop="operatorTime"
-                label="操作时间"
-                width="180">
+                label="操作人">
             </el-table-column>
           </el-table>
         </div>
@@ -72,53 +90,74 @@
 </template>
 
 <script>
+import {operateLog} from "@/api";
+import dayjs from "dayjs";
+
 export default {
   data() {
     return {
       tableData: [
-        {
-          serialNumber: '01',
-          operator: '王小虎',
-          operatorContent: '登录期刊在线管理系统',
-          operatorTime: '2016-05-02 10:10:00'
-        },
-        {
-          serialNumber: '02',
-          operator: '王小虎',
-          operatorContent: '登录期刊在线管理系统',
-          operatorTime: '2016-05-02 10:10:00'
-        },
-        {
-          serialNumber: '03',
-          operator: '王小虎',
-          operatorContent: '登录期刊在线管理系统',
-          operatorTime: '2016-05-02 10:10:00'
-        },
-        {
-          serialNumber: '04',
-          operator: '王小虎',
-          operatorContent: '登录期刊在线管理系统',
-          operatorTime: '2016-05-02 10:10:00'
-        },
-        {
-          serialNumber: '05',
-          operator: '王小虎',
-          operatorContent: '登录期刊在线管理系统',
-          operatorTime: '2016-05-02 10:10:00'
-        },
-        {
-          serialNumber: '06',
-          operator: '王小虎',
-          operatorContent: '登录期刊在线管理系统',
-          operatorTime: '2016-05-02 10:10:00'
-        },
-        {
-          serialNumber: '07',
-          operator: '王小虎',
-          operatorContent: '登录期刊在线管理系统',
-          operatorTime: '2016-05-02 10:10:00'
-        },
-        ]
+        // {
+        //   serialNumber: '01',
+        //   operator: '王小虎',
+        //   operatorContent: '登录期刊在线管理系统',
+        //   operatorTime: '2016-05-02 10:10:00'
+        // },
+        // {
+        //   serialNumber: '02',
+        //   operator: '王小虎',
+        //   operatorContent: '登录期刊在线管理系统',
+        //   operatorTime: '2016-05-02 10:10:00'
+        // },
+        // {
+        //   serialNumber: '03',
+        //   operator: '王小虎',
+        //   operatorContent: '登录期刊在线管理系统',
+        //   operatorTime: '2016-05-02 10:10:00'
+        // },
+        // {
+        //   serialNumber: '04',
+        //   operator: '王小虎',
+        //   operatorContent: '登录期刊在线管理系统',
+        //   operatorTime: '2016-05-02 10:10:00'
+        // },
+        // {
+        //   serialNumber: '05',
+        //   operator: '王小虎',
+        //   operatorContent: '登录期刊在线管理系统',
+        //   operatorTime: '2016-05-02 10:10:00'
+        // },
+        // {
+        //   serialNumber: '06',
+        //   operator: '王小虎',
+        //   operatorContent: '登录期刊在线管理系统',
+        //   operatorTime: '2016-05-02 10:10:00'
+        // },
+        // {
+        //   serialNumber: '07',
+        //   operator: '王小虎',
+        //   operatorContent: '登录期刊在线管理系统',
+        //   operatorTime: '2016-05-02 10:10:00'
+        // },
+      ]
+    }
+  },
+   mounted() {
+    let res = {}
+    operateLog()
+        .then(function (response) {
+          console.log(response.data)
+          res = response.data
+          this.tableData = res.data;
+        }.bind(this))
+        .catch(function (error) {
+          console.log(error);
+        }.bind(this));
+  },
+  methods:{
+    formatDate(row, column, cellValue, index) {
+      // 使用 dayjs 格式化日期
+      return dayjs(cellValue).format('YYYY-MM-DD HH:mm:ss');
     }
   }
 }

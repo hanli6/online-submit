@@ -5,13 +5,13 @@
       <span class="text">首页</span>
     </div>
     <div class="r-content">
-      <el-dropdown>
+      <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link">
           <img src="../assets/images/20250103213434.jpg" alt="">
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>个人中心</el-dropdown-item>
-          <el-dropdown-item>退出</el-dropdown-item>
+          <el-dropdown-item command="center">个人中心</el-dropdown-item>
+          <el-dropdown-item command="logout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import jsCookie from "js-cookie";
+
 export default {
   data(){
     return {}
@@ -26,6 +28,12 @@ export default {
   methods: {
     handleMenu() {
       this.$store.commit('collapseMenu');
+    },
+    handleCommand(command) {
+      if (command === 'logout') {
+        jsCookie.remove("menu")
+        this.$router.push('/login')
+      }
     }
   }
 }
