@@ -14,3 +14,13 @@ export const userRegister = (params)=>{
 export const operateLog = ()=>{
     return myAxios.get('/operate_log/list')
 }
+
+//稿件上传
+export const uploadManuscript = (params,config)=>{
+    return myAxios.post('/manuscript/upload',params,config)
+}
+
+//获取当前用户信息
+export const getCurrentUser = ()=>{
+    return myAxios.get('/user/getCurrentUser')
+}

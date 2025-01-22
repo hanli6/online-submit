@@ -90,59 +90,16 @@
 </template>
 
 <script>
-import {operateLog} from "@/api";
+import {getCurrentUser, operateLog} from "@/api";
 import dayjs from "dayjs";
 
 export default {
   data() {
     return {
-      tableData: [
-        // {
-        //   serialNumber: '01',
-        //   operator: '王小虎',
-        //   operatorContent: '登录期刊在线管理系统',
-        //   operatorTime: '2016-05-02 10:10:00'
-        // },
-        // {
-        //   serialNumber: '02',
-        //   operator: '王小虎',
-        //   operatorContent: '登录期刊在线管理系统',
-        //   operatorTime: '2016-05-02 10:10:00'
-        // },
-        // {
-        //   serialNumber: '03',
-        //   operator: '王小虎',
-        //   operatorContent: '登录期刊在线管理系统',
-        //   operatorTime: '2016-05-02 10:10:00'
-        // },
-        // {
-        //   serialNumber: '04',
-        //   operator: '王小虎',
-        //   operatorContent: '登录期刊在线管理系统',
-        //   operatorTime: '2016-05-02 10:10:00'
-        // },
-        // {
-        //   serialNumber: '05',
-        //   operator: '王小虎',
-        //   operatorContent: '登录期刊在线管理系统',
-        //   operatorTime: '2016-05-02 10:10:00'
-        // },
-        // {
-        //   serialNumber: '06',
-        //   operator: '王小虎',
-        //   operatorContent: '登录期刊在线管理系统',
-        //   operatorTime: '2016-05-02 10:10:00'
-        // },
-        // {
-        //   serialNumber: '07',
-        //   operator: '王小虎',
-        //   operatorContent: '登录期刊在线管理系统',
-        //   operatorTime: '2016-05-02 10:10:00'
-        // },
-      ]
+      tableData: []
     }
   },
-   mounted() {
+  mounted() {
     let res = {}
     operateLog()
         .then(function (response) {
@@ -154,7 +111,18 @@ export default {
           console.log(error);
         }.bind(this));
   },
-  methods:{
+  async created() {
+    let res = {}
+    await getCurrentUser().then(response => {
+      res = response.data;
+    }).catch(function (error) {
+      console.log(error);
+    })
+    //把用户信息设置到store中
+    console.log('userVo',res.data)
+    this.$store.commit('setUserVo',res.data);
+  },
+  methods: {
     formatDate(row, column, cellValue, index) {
       // 使用 dayjs 格式化日期
       return dayjs(cellValue).format('YYYY-MM-DD HH:mm:ss');

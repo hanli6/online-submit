@@ -1,12 +1,7 @@
 import Vue  from "vue";
 import Router from "vue-router";
-import home from "@/views/Home.vue";
-import user from "@/views/User.vue";
 import main from "@/views/main.vue";
 import VueRouter from "vue-router";
-import mall from "@/views/Mall.vue";
-import pageOne from "@/views/PageOne.vue";
-import pageTwo from "@/views/PageTwo.vue";
 import login from "@/views/Login.vue";
 import register from "@/views/Register.vue";
 
@@ -19,28 +14,6 @@ const routes = [
         name: "Main",
         component: main,
         redirect:'/home',
-        // children:[
-        //     {
-        //         "path": "/home",
-        //         component:home
-        //     },
-        //     {
-        //         "path": "/mall",
-        //         component:mall
-        //     },
-        //     {
-        //         "path": "/user",
-        //         component:user
-        //     },
-        //     {
-        //         "path": "/pageOne",
-        //         component:pageOne
-        //     },
-        //     {
-        //         "path": "/pageTwo",
-        //         component:pageTwo
-        //     }
-        // ]
     },
     {
         path: '/login',

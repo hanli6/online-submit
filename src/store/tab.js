@@ -5,7 +5,8 @@ export default {
         //菜单是否缩放
         isCollapsed: false,
         //菜单树
-        menu: []
+        menu: [],
+        userVo: {}
     },
     mutations: {
         //修改菜单缩放状态
@@ -37,15 +38,22 @@ export default {
                     })
                     //将子菜单存入新数组中
                     menuArr.push(...item.children);
-                }else {
+                } else {
                     item.component = () => import(`../views/${item.url}`);
                     menuArr.push(item);
                 }
             });
             //添加到动态路由中
             menuArr.forEach((item) => {
-                router.addRoute('Main',item);
+                router.addRoute('Main', item);
             })
+        },
+        //设置用户信息
+        setUserVo(state, value) {
+            //将用户信息保存到state中，不过浏览器一刷新，就会清空数据
+            state.userVo=value;
+            //将用户信息存储到Cookie中
+            jsCookie.set("userVo", JSON.stringify(value));
         }
     }
 }

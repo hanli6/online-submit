@@ -20,9 +20,11 @@
           <i :class="`el-icon-${item.icon}`"></i>
           <span slot="title">{{ item.label }}</span>
         </template>
-        <el-menu-item-group v-for="subItem in item.children" :key="subItem.name"
-                            :index="subItem.label">
-          <el-menu-item @click="clickMenu(subItem)" :index="`${subItem.path}`">{{ subItem.label }}</el-menu-item>
+        <el-menu-item-group v-for="subItem in item.children" :key="subItem.name" :index="subItem.label">
+          <el-menu-item @click="clickMenu(subItem)" :index="`${subItem.path}`">
+            <i :class="`el-icon-${subItem.icon}`"></i>
+            <span slot="title">{{ subItem.label }}</span>
+          </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>

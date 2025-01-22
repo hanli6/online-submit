@@ -149,18 +149,13 @@
                   res = response.data;
                   //处理返回结果
                   if (response.code === 200) {
+                    alert(123)
                     this.$router.push('/login');
                     this.$message('注册成功');
-                  }else {
-                    this.$message(res.message);
                   }
                 }.bind(this))
                 .catch(function (error) {
-                  alert(error);
-                  console.log(error);
-                  // 将后端返回的错误信息赋值到 fieldErrors
-                  this.fieldErrors = error.response.data.errors;
-                  console.log(error);
+                  this.$message(error.message);
                 }.bind(this));
           },
 

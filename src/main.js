@@ -4,7 +4,6 @@ import router from './router/index.js'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import store from "@/store";
-import tab from "@/store/tab";
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);

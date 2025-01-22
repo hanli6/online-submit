@@ -71,6 +71,8 @@ export default {
               this.$store.commit('setMenu',res.data.menuVoList)
               //添加动态路由
               this.$store.commit('addMenu',this.$router)
+              //添加token
+              this.$store.commit('setUserId',res.data.token)
               this.$router.push('/home');
               this.$message('登录成功');
             } else {
