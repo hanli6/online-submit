@@ -103,8 +103,18 @@ export default {
       //发送axios请求
       await uploadManuscript(sumFormData, config).then(response => {
         let res = response.data;
-        if (res.code == 200) {
-          this.$message('稿件上传成功');
+        console.log(res)
+        if (res.code === 200) {
+          //this.$message('稿件上传成功');
+          this.$message({
+            message:'上传成功',
+            type:'success'
+          })
+        }else {
+          this.$message({
+            message:'上传失败',
+            type:'error'
+          })
         }
       }).catch(error => {
         console.log(error);

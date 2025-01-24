@@ -24,3 +24,8 @@ export const uploadManuscript = (params,config)=>{
 export const getCurrentUser = ()=>{
     return myAxios.get('/user/getCurrentUser')
 }
+
+//用户退出
+export const userLogout = ()=>{
+    return myAxios.get('/user/logout')
+}

@@ -6,7 +6,7 @@ export default {
         isCollapsed: false,
         //菜单树
         menu: [],
-        userVo: {}
+        userVo: {},
     },
     mutations: {
         //修改菜单缩放状态

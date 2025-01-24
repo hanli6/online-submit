@@ -74,7 +74,10 @@ export default {
               //添加token
               this.$store.commit('setUserId',res.data.token)
               this.$router.push('/home');
-              this.$message('登录成功');
+              this.$message({
+                message:'登录成功',
+                type:'success'
+              });
             } else {
               this.$message(res.message);
             }

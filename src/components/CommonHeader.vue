@@ -20,9 +20,10 @@
 
 <script>
 import jsCookie from "js-cookie";
+import {userLogout} from "@/api";
 
 export default {
-  data(){
+  data() {
     return {}
   },
   methods: {
@@ -30,6 +31,21 @@ export default {
       this.$store.commit('collapseMenu');
     },
     handleCommand(command) {
+      let res = {};
+      userLogout().then(response => {
+        res = response.data;
+        if (res.code === 200) {
+          this.$message({
+            message:"成功退出！",
+            type:'success'
+          })
+        }else {
+          this.$message({
+            message:"推出失败！",
+            type:'error'
+          })
+        }
+      })
       if (command === 'logout') {
         jsCookie.remove("menu")
         this.$router.push('/login')
