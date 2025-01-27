@@ -29,3 +29,8 @@ export const getCurrentUser = ()=>{
 export const userLogout = ()=>{
     return myAxios.get('/user/logout')
 }
+
+//获取稿件信息
+export const getManuscripts = ()=>{
+    return myAxios.get('/manuscript/list')
+}

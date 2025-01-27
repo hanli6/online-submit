@@ -149,7 +149,6 @@
                   res = response.data;
                   //处理返回结果
                   if (response.code === 200) {
-                    alert(123)
                     this.$router.push('/login');
                     this.$message('注册成功');
                   }
