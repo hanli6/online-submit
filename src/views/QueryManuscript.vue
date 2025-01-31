@@ -57,7 +57,7 @@
         <el-descriptions-item label="投稿时间">{{ submitTime }}</el-descriptions-item>
         <el-descriptions-item label="稿件封面"><img :src="coverImg" width="200px"></el-descriptions-item>
         <el-descriptions-item label="稿件下载">
-          <el-button type="primary">点击下载</el-button>
+          <el-link type="primary" :href="downloadUrl">点击下载</el-link>
         </el-descriptions-item>
       </el-descriptions>
       <span slot="footer" class="dialog-footer">
@@ -94,6 +94,8 @@ export default {
       status: '',
       submitTime: '',
       coverImg: '',
+      fileName:'',
+      downloadUrl:'',
     }
   },
   async mounted() {
@@ -116,6 +118,7 @@ export default {
       this.status = row.status
       this.submitTime = row.submitTime
       this.coverImg = "data:image/png;base64," + row.coverImg
+      this.downloadUrl = "http://localhost:8081/api/manuscript/download?filename=" + row.fileName;
     }
   }
 }
